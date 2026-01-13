@@ -1,0 +1,121 @@
+.bilingual-translation {
+  line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.translation-zh {
+  display: block;
+  color: #1976d2;
+  font-style: normal;
+  margin-top: 8px;
+  padding: 8px 12px;
+  font-size: 0.95em;
+  opacity: 0.9;
+  background-color: #f0f7ff;
+  border-left: 3px solid #1976d2;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  line-height: 1.6;
+}
+.translation-zh:hover {
+  opacity: 1;
+  background-color: #e3f2fd;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.15);
+}
+/* Learning mode: blurred by default, clear on hover */
+.translation-zh.learning-mode {
+  filter: blur(5px);
+  opacity: 0.6;
+  user-select: none;
+}
+
+.translation-zh.learning-mode:hover {
+  filter: blur(0);
+  opacity: 1;
+  user-select: text;
+}
+
+/* Placeholder for lazy loading */
+.translation-placeholder {
+  background-color: #f5f5f5 !important;
+  border-left-color: #9e9e9e !important;
+  color: #757575 !important;
+  font-style: italic;
+  opacity: 0.7;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Error state */
+.translation-error {
+  background-color: #ffebee !important;
+  border-left-color: #f44336 !important;
+  color: #c62828 !important;
+}
+/* Floating button styles */
+.translation-floating-btn {
+  position: fixed;
+  top: 80px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 999999;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  opacity: 0.3;
+}
+
+.translation-floating-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+  opacity: 1;
+}
+
+.translation-floating-btn:active {
+  transform: scale(0.95);
+}
+
+.translation-floating-btn.active {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+}
+
+.translation-floating-btn.active:hover {
+  box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
+}
+
+.translation-floating-btn svg {
+  pointer-events: none;
+}
+
+/* Animation for button appearance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.translation-floating-btn {
+  animation: fadeInUp 0.5s ease-out;
+}

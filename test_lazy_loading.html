@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lazy Loading Translation Test</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+    }
+
+    .header {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #667eea;
+      margin: 0 0 10px 0;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1.1em;
+    }
+
+    .content-section {
+      background: white;
+      padding: 25px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #764ba2;
+      border-bottom: 3px solid #667eea;
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+
+    p {
+      margin: 15px 0;
+      text-align: justify;
+    }
+
+    .highlight {
+      background: #f0f7ff;
+      padding: 15px;
+      border-left: 4px solid #667eea;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .footer {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🚀 Lazy Loading Translation Test Page</h1>
+    <p class="subtitle">Scroll down to see lazy loading in action!</p>
+  </div>
+
+  <div class="content-section">
+    <h2>What is Lazy Loading?</h2>
+    <p>
+      Lazy loading is an optimization technique that defers the loading of non-critical resources
+      at page load time. Instead, these resources are loaded at the moment they are needed,
+      typically when they enter the viewport or are about to enter it.
+    </p>
+    <p>
+      In the context of translation, lazy loading means that translations are only performed
+      when the text becomes visible to the user. This approach significantly reduces API calls,
+      saves tokens, and improves overall performance.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>Benefits of Lazy Loading Translation</h2>
+    <div class="highlight">
+      <p><strong>💰 Cost Savings:</strong> Only translate what users actually read, potentially saving 80% or more on API costs.</p>
+    </div>
+    <div class="highlight">
+      <p><strong>⚡ Faster Response:</strong> Users see placeholders immediately instead of waiting for all translations to complete.</p>
+    </div>
+    <div class="highlight">
+      <p><strong>🎯 Better Performance:</strong> Reduced memory usage and smoother scrolling experience.</p>
+    </div>
+    <div class="highlight">
+      <p><strong>🚫 Avoid Rate Limits:</strong> Spread out API calls over time as users scroll, reducing the chance of hitting rate limits.</p>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>How It Works</h2>
+    <p>
+      The lazy loading system uses the Intersection Observer API to monitor when elements
+      enter the viewport. When an element becomes visible (or is about to become visible),
+      the translation is triggered automatically.
+    </p>
+    <p>
+      Initially, all translatable elements receive a placeholder that indicates the translation
+      will load when visible. This provides immediate feedback to users and creates a smooth,
+      progressive loading experience.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>Performance Statistics</h2>
+    <div class="stats">
+      <div class="stat-card">
+        <div>Token Savings</div>
+        <div class="stat-number">80%+</div>
+        <div>On average</div>
+      </div>
+      <div class="stat-card">
+        <div>Response Time</div>
+        <div class="stat-number">&lt;1s</div>
+        <div>Initial load</div>
+      </div>
+      <div class="stat-card">
+        <div>API Calls</div>
+        <div class="stat-number">90%↓</div>
+        <div>Reduction</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Technical Implementation</h2>
+    <p>
+      The implementation leverages modern browser APIs to create an efficient and reliable
+      lazy loading system. The <code>IntersectionObserver</code> API provides a way to
+      asynchronously observe changes in the intersection of a target element with an ancestor
+      element or with a top-level document's viewport.
+    </p>
+    <p>
+      By setting a <code>rootMargin</code> of 100px, translations begin loading slightly
+      before elements enter the viewport, ensuring they're ready when users need them.
+      The threshold is set to 0.01, meaning the callback triggers when just 1% of the
+      element is visible.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>User Experience Design</h2>
+    <p>
+      The visual design of the lazy loading system prioritizes clarity and feedback.
+      Placeholders use a subtle gray color with a pulsing animation to indicate that
+      content is pending. Once loaded, translations appear in a distinct blue-tinted
+      block with a left border, making them easy to distinguish from original text.
+    </p>
+    <p>
+      Error states are handled gracefully with red-tinted blocks that clearly indicate
+      when a translation has failed. This allows users to understand what happened and
+      potentially retry if needed.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>Integration with Rate Limiting</h2>
+    <p>
+      Lazy loading works seamlessly with the rate limiting system. Even as elements enter
+      the viewport and trigger translations, they still respect the configured concurrency
+      limits and delays. This ensures that the system never overwhelms the API, regardless
+      of how quickly users scroll.
+    </p>
+    <p>
+      The combination of lazy loading and rate limiting creates a robust system that
+      balances performance, cost, and reliability. Users get fast, responsive translations
+      while staying within API limits and budget constraints.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>Real-World Scenarios</h2>
+    <p>
+      Consider a long-form article with 1000 paragraphs. Without lazy loading, clicking
+      "Translate" would trigger 1000 API calls immediately, potentially taking several
+      minutes and costing significant tokens. Most users would only read the first 100-200
+      paragraphs before leaving.
+    </p>
+    <p>
+      With lazy loading, only the visible paragraphs are translated initially. As users
+      scroll, new translations load just-in-time. If a user reads 200 paragraphs, only
+      200 API calls are made, saving 80% of the cost and providing a much faster initial
+      response.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>Browser Compatibility</h2>
+    <p>
+      The Intersection Observer API is widely supported across modern browsers, including
+      Chrome, Firefox, Safari, and Edge. It has been available since Chrome 51, making it
+      a stable and reliable foundation for the lazy loading system.
+    </p>
+    <p>
+      For older browsers that don't support Intersection Observer, a polyfill could be
+      added, or the system could gracefully fall back to immediate translation. However,
+      given that this is a Chrome extension, we can rely on the native implementation.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>Future Enhancements</h2>
+    <p>
+      Future versions could include configurable lazy loading parameters, allowing users
+      to adjust the <code>rootMargin</code> and <code>threshold</code> values based on
+      their preferences and network conditions. Smart preloading based on scroll velocity
+      could predict which elements will be needed next.
+    </p>
+    <p>
+      Another potential enhancement is caching translated content across page reloads,
+      so users don't need to re-translate content they've already seen. This could be
+      implemented using IndexedDB or localStorage with appropriate cache invalidation
+      strategies.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>Best Practices</h2>
+    <p>
+      When using lazy loading translation, it's important to provide clear visual feedback
+      about the loading state. Placeholders should be distinct but not distracting, and
+      they should clearly indicate that content is coming.
+    </p>
+    <p>
+      Error handling is crucial. If a translation fails, users should be informed clearly
+      and given options to retry or report the issue. The system should never leave users
+      wondering what happened or why content isn't loading.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>Testing and Validation</h2>
+    <p>
+      To test lazy loading, try scrolling this page slowly and watching how translations
+      appear. You should see placeholders initially, which are then replaced with actual
+      translations as elements enter the viewport. The process should feel smooth and
+      responsive.
+    </p>
+    <p>
+      You can also test with different translation speeds (Slow, Medium, Fast) to see
+      how the rate limiting interacts with lazy loading. Even on Fast mode, translations
+      should appear progressively as you scroll, never overwhelming the API.
+    </p>
+  </div>
+
+  <div class="content-section">
+    <h2>Conclusion</h2>
+    <p>
+      Lazy loading translation represents a significant improvement in both user experience
+      and cost efficiency. By only translating what users actually view, we reduce API
+      costs by 80% or more while providing faster, more responsive translations.
+    </p>
+    <p>
+      The implementation is robust, leveraging standard browser APIs and integrating
+      seamlessly with existing features like rate limiting and multiple API configurations.
+      Users benefit from immediate feedback, smooth scrolling, and efficient resource usage.
+    </p>
+  </div>
+
+  <div class="footer">
+    <p><strong>🎉 You've reached the end!</strong></p>
+    <p>If you scrolled through this entire page, you've experienced lazy loading in action.</p>
+    <p>Check the console (Developer Mode) to see how many translations were actually performed.</p>
+  </div>
+</body>
+</html>

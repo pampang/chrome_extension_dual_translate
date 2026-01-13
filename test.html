@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Translation Test Page</title>
+  <style>
+    body {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+    }
+    h1 { color: #333; }
+    p { margin: 20px 0; }
+    strong { font-weight: 600; color: #d32f2f; }
+    a { color: #1976d2; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>Test Page for Translation Extension</h1>
+
+  <p>This is a simple paragraph with just plain text.</p>
+
+  <p>One important property for a style of thinking and argumentation to
+have is what I call <strong>galaxy brain resistance</strong>: how
+difficult is it to abuse that style of thinking to argue for pretty much
+whatever you want - something that you already decided elsewhere for
+other reasons? The spirit here is similar to <a href="https://en.wikipedia.org/wiki/Falsifiability">falsifiability</a>
+in science: if your arguments can justify anything, then your arguments
+imply nothing.</p>
+
+  <div>
+    <p>This is a paragraph inside a div.</p>
+    <p>This is another paragraph inside the same div.</p>
+  </div>
+
+  <h2>Benefits of Block-Level Translation</h2>
+
+  <ul>
+    <li>Maintains context and semantic meaning</li>
+    <li>Preserves internal HTML structure like <strong>bold</strong> and <a href="#">links</a></li>
+    <li>Reduces API calls and improves performance</li>
+    <li>Better translation quality with full context</li>
+  </ul>
+
+  <blockquote>
+    This is a blockquote with some <em>emphasized text</em> and a <a href="#">link</a>.
+  </blockquote>
+
+  <table>
+    <caption>Sample Table</caption>
+    <thead>
+      <tr>
+        <th>Header 1</th>
+        <th>Header 2</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cell with <strong>bold text</strong></td>
+        <td>Cell with <a href="#">a link</a></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

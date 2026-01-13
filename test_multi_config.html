@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多配置测试 - 灵犀翻译</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .test-section {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+
+    h2 {
+      margin-top: 0;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+      padding-bottom: 10px;
+    }
+
+    .instructions {
+      background: rgba(33, 150, 243, 0.2);
+      padding: 15px;
+      border-radius: 6px;
+      margin: 20px 0;
+      border-left: 4px solid rgba(33, 150, 243, 0.8);
+    }
+
+    .instructions h3 {
+      margin-top: 0;
+    }
+
+    .instructions ol {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+
+    .instructions li {
+      margin: 8px 0;
+    }
+
+    code {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .example-config {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 15px;
+      border-radius: 6px;
+      margin: 10px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+
+    .test-content {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      border-radius: 6px;
+      margin: 15px 0;
+    }
+
+    .highlight {
+      background: rgba(255, 235, 59, 0.3);
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌐 Multiple Configurations Test Page</h1>
+
+    <div class="instructions">
+      <h3>📋 How to Test Multiple Configurations:</h3>
+      <ol>
+        <li>Open the extension popup (click the extension icon)</li>
+        <li>Select <strong>"OpenAI Compatible"</strong> from Translation API</li>
+        <li>Click <strong>"+ New Configuration"</strong></li>
+        <li>Create your first configuration (see examples below)</li>
+        <li>Click <strong>"Save"</strong></li>
+        <li>Create more configurations by repeating steps 3-5</li>
+        <li>Use the dropdown to switch between configurations</li>
+        <li>Click <strong>"Translate Current Page"</strong> to test</li>
+        <li>Compare translations from different configurations</li>
+      </ol>
+    </div>
+
+    <div class="test-section">
+      <h2>Example Configuration 1: Groq (Free & Fast)</h2>
+      <div class="example-config">
+Name: Groq Fast<br>
+API URL: https://api.groq.com/openai/v1<br>
+API Key: gsk_your_key_here<br>
+Model: llama-3.1-70b-versatile
+      </div>
+      <p><strong>Best for:</strong> Quick translations, high volume usage (14,400 free requests/day)</p>
+    </div>
+
+    <div class="test-section">
+      <h2>Example Configuration 2: DeepSeek (Chinese Quality)</h2>
+      <div class="example-config">
+Name: DeepSeek Chinese<br>
+API URL: https://api.deepseek.com/v1<br>
+API Key: sk_your_key_here<br>
+Model: deepseek-chat
+      </div>
+      <p><strong>Best for:</strong> High-quality Chinese translations, technical content</p>
+    </div>
+
+    <div class="test-section">
+      <h2>Example Configuration 3: Ollama (Local & Private)</h2>
+      <div class="example-config">
+Name: Ollama Local<br>
+API URL: http://localhost:11434/v1<br>
+API Key: ollama<br>
+Model: llama3
+      </div>
+      <p><strong>Best for:</strong> Privacy, offline usage, unlimited translations</p>
+      <p><strong>Setup:</strong> Install Ollama and run <code>ollama pull llama3</code></p>
+    </div>
+
+    <div class="test-section">
+      <h2>🧪 Test Content: Technical Article</h2>
+      <div class="test-content">
+        <p>
+          <strong>Machine learning</strong> is a subset of artificial intelligence that focuses on
+          the development of algorithms and statistical models that enable computer systems to
+          improve their performance on a specific task through experience.
+        </p>
+        <p>
+          The process involves <span class="highlight">training a model</span> on a dataset,
+          where the model learns patterns and relationships within the data. Once trained,
+          the model can make predictions or decisions on new, unseen data.
+        </p>
+        <p>
+          Common applications include <strong>natural language processing</strong>,
+          <strong>computer vision</strong>, and <strong>recommendation systems</strong>.
+          These technologies power many modern services, from voice assistants to
+          personalized content recommendations.
+        </p>
+      </div>
+      <p><em>💡 Tip: Try translating this with different configurations and compare the quality!</em></p>
+    </div>
+
+    <div class="test-section">
+      <h2>🧪 Test Content: Casual Conversation</h2>
+      <div class="test-content">
+        <p>
+          Hey! I just wanted to share some exciting news with you. I've been working on
+          this project for months, and it's finally coming together.
+        </p>
+        <p>
+          The team has been incredibly supportive, and we've overcome so many challenges
+          along the way. I'm really proud of what we've accomplished.
+        </p>
+        <p>
+          Let me know if you'd like to hear more about it. I'd love to get your feedback!
+        </p>
+      </div>
+      <p><em>💡 Tip: Different models may handle casual language differently!</em></p>
+    </div>
+
+    <div class="test-section">
+      <h2>🧪 Test Content: Business Email</h2>
+      <div class="test-content">
+        <p>
+          <strong>Subject: Quarterly Review Meeting</strong>
+        </p>
+        <p>
+          Dear Team,
+        </p>
+        <p>
+          I hope this email finds you well. I would like to schedule our quarterly review
+          meeting for next week. Please review the attached documents before the meeting.
+        </p>
+        <p>
+          The agenda will include:
+        </p>
+        <ul>
+          <li>Performance metrics analysis</li>
+          <li>Budget allocation for Q4</li>
+          <li>Strategic planning initiatives</li>
+        </ul>
+        <p>
+          Please confirm your availability at your earliest convenience.
+        </p>
+        <p>
+          Best regards,<br>
+          Management Team
+        </p>
+      </div>
+      <p><em>💡 Tip: Professional content may benefit from higher-quality models!</em></p>
+    </div>
+
+    <div class="test-section">
+      <h2>✅ Testing Checklist</h2>
+      <div class="test-content">
+        <p><strong>Configuration Management:</strong></p>
+        <ul>
+          <li>☐ Create a new configuration</li>
+          <li>☐ Save the configuration</li>
+          <li>☐ Create a second configuration</li>
+          <li>☐ Switch between configurations using dropdown</li>
+          <li>☐ Edit an existing configuration</li>
+          <li>☐ Delete a configuration</li>
+        </ul>
+
+        <p><strong>Translation Testing:</strong></p>
+        <ul>
+          <li>☐ Translate with Configuration 1</li>
+          <li>☐ Remove translations</li>
+          <li>☐ Switch to Configuration 2</li>
+          <li>☐ Translate again and compare results</li>
+          <li>☐ Test with Configuration 3 (if available)</li>
+        </ul>
+
+        <p><strong>Edge Cases:</strong></p>
+        <ul>
+          <li>☐ Try translating with no configuration selected</li>
+          <li>☐ Try translating with invalid API key</li>
+          <li>☐ Delete the currently selected configuration</li>
+          <li>☐ Create configuration with empty name (should fail)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <h3>🎯 What to Look For:</h3>
+      <ul>
+        <li><strong>Configuration Persistence:</strong> Configurations should be saved and available after closing/reopening popup</li>
+        <li><strong>Selection Memory:</strong> The selected configuration should remain selected</li>
+        <li><strong>Translation Quality:</strong> Different configurations may produce different translation quality</li>
+        <li><strong>Speed Differences:</strong> Some providers (like Groq) are faster than others</li>
+        <li><strong>Error Handling:</strong> Invalid configurations should show appropriate error messages</li>
+      </ul>
+    </div>
+
+    <div class="test-section">
+      <h2>📊 Comparison Notes</h2>
+      <div class="test-content">
+        <p>Use this space to note differences between configurations:</p>
+        <ul>
+          <li><strong>Speed:</strong> Which configuration translates fastest?</li>
+          <li><strong>Quality:</strong> Which produces the most natural Chinese?</li>
+          <li><strong>Technical Terms:</strong> Which handles technical vocabulary best?</li>
+          <li><strong>Casual Language:</strong> Which handles informal language best?</li>
+          <li><strong>Consistency:</strong> Which maintains consistent terminology?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <h3>📖 Documentation:</h3>
+      <ul>
+        <li><a href="MULTI_CONFIG_GUIDE.md" style="color: white;">Multiple Configurations Guide</a></li>
+        <li><a href="OPENAI_API_GUIDE.md" style="color: white;">OpenAI API Setup Guide</a></li>
+        <li><a href="QUICK_SETUP.md" style="color: white;">Quick Setup Guide</a></li>
+        <li><a href="README.md" style="color: white;">Main README</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

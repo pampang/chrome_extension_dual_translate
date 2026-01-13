@@ -1,0 +1,18 @@
+{
+  "name": "chrome-bilingual-translator",
+  "version": "1.0.0",
+  "description": "Chrome extension for bilingual English-Chinese translation",
+  "scripts": {
+    "build": "echo 'No build step required - load directly in Chrome'",
+    "test": "echo 'No tests configured'"
+  },
+  "keywords": [
+    "chrome-extension",
+    "translation",
+    "bilingual",
+    "english",
+    "chinese"
+  ],
+  "author": "",
+  "license": "MIT"
+}
