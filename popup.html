@@ -65,13 +65,10 @@
       box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
     }
 
-    .status {
-      text-align: center;
+    .statusText {
       font-size: 13px;
-      padding: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 6px;
-      margin-top: 12px;
+      font-style: italic;
+      opacity: .8;
     }
 
     .info {
@@ -195,15 +192,64 @@
       font-family: 'Courier New', monospace;
       font-size: 11px;
     }
+
+    /* Switch toggle styles */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 26px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+      transition: 0.3s;
+      border-radius: 26px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    input:checked + .slider {
+      background-color: rgba(76, 175, 80, 0.6);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    .switch-hint {
+      font-size: 11px;
+      opacity: 0.7;
+      margin-left: 8px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
-<h1>🌐 灵犀翻译</h1>
-
-    <div class="status" id="status">
-      Status: <span id="statusText">Ready</span>
-    </div>
+    <h1>🌐 灵犀翻译 <span id="statusText">Ready</span> </h1>
 
     <button class="btn btn-primary" id="translateNow">Translate Current Page</button>
     <button class="btn btn-secondary" id="removeTranslations">Remove Translations</button>
@@ -258,29 +304,29 @@
     </div>
 
     <div class="toggle-container">
-      <span class="toggle-label">Display Mode</span>
-      <select id="displayMode" class="mode-select">
-        <option value="normal">Normal</option>
-        <option value="learning">Learning Mode</option>
-      </select>
+      <span class="toggle-label">Display Mode<span class="switch-hint" id="displayModeHint">Normal</span></span>
+      <label class="switch">
+        <input type="checkbox" id="displayMode">
+        <span class="slider"></span>
+      </label>
     </div>
 
     <div class="toggle-container">
-      <span class="toggle-label">Developer Mode</span>
-      <select id="devMode" class="mode-select">
-        <option value="false">Off</option>
-        <option value="true">On</option>
-      </select>
+      <span class="toggle-label">Developer Mode<span class="switch-hint" id="devModeHint">Off</span></span>
+      <label class="switch">
+        <input type="checkbox" id="devMode">
+        <span class="slider"></span>
+      </label>
     </div>
 
 
 
     <div class="toggle-container">
-      <span class="toggle-label">Hide Floating Button</span>
-      <select id="hideFloatingButton" class="mode-select">
-        <option value="false">Show</option>
-        <option value="true">Hide</option>
-      </select>
+      <span class="toggle-label">Hide Floating Button<span class="switch-hint" id="hideFloatingButtonHint">Show</span></span>
+      <label class="switch">
+        <input type="checkbox" id="hideFloatingButton">
+        <span class="slider"></span>
+      </label>
     </div>
   </div>
 

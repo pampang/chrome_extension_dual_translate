@@ -15,10 +15,17 @@ chrome.storage.sync.get(['displayMode', 'translationApi', 'devMode', 'apiConfigs
   selectedConfigId = result.selectedConfigId || null;
   setDevMode(devModeValue);
   log('[Popup] Loaded display mode:', mode, 'translation API:', api, 'dev mode:', devModeValue, 'hideFloatingButton:', hideButton, 'configs:', apiConfigs.length);
-  document.getElementById('displayMode').value = mode;
+
+  // Set checkbox states
+  document.getElementById('displayMode').checked = mode === 'learning';
   document.getElementById('translationApi').value = api;
-  document.getElementById('devMode').value = devModeValue ? 'true' : 'false';
-  document.getElementById('hideFloatingButton').value = hideButton ? 'true' : 'false';
+  document.getElementById('devMode').checked = devModeValue;
+  document.getElementById('hideFloatingButton').checked = hideButton;
+
+  // Update hint texts
+  document.getElementById('displayModeHint').textContent = mode === 'learning' ? 'Learning' : 'Normal';
+  document.getElementById('devModeHint').textContent = devModeValue ? 'On' : 'Off';
+  document.getElementById('hideFloatingButtonHint').textContent = hideButton ? 'Hidden' : 'Show';
 
   // Show API config input if needed
   updateApiConfigVisibility(api);
@@ -28,9 +35,12 @@ chrome.storage.sync.get(['displayMode', 'translationApi', 'devMode', 'apiConfigs
 });
 // Developer mode change handler
 document.getElementById('devMode').addEventListener('change', async (e) => {
-  const devModeValue = e.target.value === 'true';
+  const devModeValue = e.target.checked;
   setDevMode(devModeValue);
   log('[Popup] Developer mode changed to:', devModeValue);
+
+  // Update hint text
+  document.getElementById('devModeHint').textContent = devModeValue ? 'On' : 'Off';
 
   // Save state
   await chrome.storage.sync.set({ devMode: devModeValue });
@@ -55,8 +65,11 @@ document.getElementById('devMode').addEventListener('change', async (e) => {
 
 // Hide floating button change handler
 document.getElementById('hideFloatingButton').addEventListener('change', async (e) => {
-  const hideButton = e.target.value === 'true';
+  const hideButton = e.target.checked;
   log('[Popup] Hide floating button changed to:', hideButton);
+
+  // Update hint text
+  document.getElementById('hideFloatingButtonHint').textContent = hideButton ? 'Hidden' : 'Show';
 
   // Save state
   await chrome.storage.sync.set({ hideFloatingButton: hideButton });
@@ -103,8 +116,11 @@ document.getElementById('translationApi').addEventListener('change', async (e) =
 
 // Display mode change handler
 document.getElementById('displayMode').addEventListener('change', async (e) => {
-  const mode = e.target.value;
+  const mode = e.target.checked ? 'learning' : 'normal';
   log('[Popup] Display mode changed to:', mode);
+
+  // Update hint text
+  document.getElementById('displayModeHint').textContent = mode === 'learning' ? 'Learning' : 'Normal';
 
   // Save state
   await chrome.storage.sync.set({ displayMode: mode });
@@ -135,7 +151,7 @@ document.getElementById('translateNow').addEventListener('click', async () => {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   log('[Popup] Current tab:', tab);
 
-  const mode = document.getElementById('displayMode').value;
+  const mode = document.getElementById('displayMode').checked ? 'learning' : 'normal';
   const api = document.getElementById('translationApi').value;
   log('[Popup] Display mode:', mode, 'Translation API:', api);
 
