@@ -266,6 +266,79 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+// Check if an element is visible in the DOM
+function isElementVisible(element) {
+  // Quick check for common hidden attributes
+  if (element.hidden || element.getAttribute('aria-hidden') === 'true') {
+    return false;
+  }
+
+  // Get computed style
+  const style = window.getComputedStyle(element);
+
+  // Check display and visibility
+  if (style.display === 'none' || style.visibility === 'hidden') {
+    return false;
+  }
+
+  // Check opacity (completely transparent elements)
+  if (parseFloat(style.opacity) === 0) {
+    return false;
+  }
+
+  // Check if element has zero dimensions (but allow for elements with overflow visible)
+  const rect = element.getBoundingClientRect();
+  if (rect.width === 0 && rect.height === 0) {
+    // Double check with offset dimensions
+    if (element.offsetWidth === 0 && element.offsetHeight === 0) {
+      return false;
+    }
+  }
+
+  // Check if element is clipped out of view
+  if (style.clip === 'rect(0px, 0px, 0px, 0px)' ||
+      style.clipPath === 'inset(100%)' ||
+      style.clipPath === 'polygon(0 0, 0 0, 0 0, 0 0)') {
+    return false;
+  }
+
+  return true;
+}
+
+// Check if element or any ancestor is hidden
+function isElementOrAncestorHidden(element) {
+  let current = element;
+  while (current && current !== document.body) {
+    if (!isElementVisible(current)) {
+      return true;
+    }
+    current = current.parentElement;
+  }
+  return false;
+}
+
+// Elements that should not be translated (non-text or code content)
+const SKIP_ELEMENTS = [
+  'script', 'style', 'svg',      // Script/style/graphics - not translatable text
+  'math',                         // MathML formulas
+  'canvas',                       // Canvas fallback text
+  'video', 'audio',               // Media fallback text
+  'iframe', 'noscript',           // Embedded/fallback content
+  'template',                     // Template content (not rendered)
+  'code', 'pre', 'kbd', 'samp',   // Code blocks - translation would break code
+  'textarea',                     // User input content
+];
+const SKIP_ELEMENTS_SELECTOR = SKIP_ELEMENTS.join(', ');
+
+// Get text content excluding non-translatable elements
+function getCleanTextContent(element) {
+  // Clone the element to avoid modifying the original
+  const clone = element.cloneNode(true);
+  // Remove all non-translatable elements
+  clone.querySelectorAll(SKIP_ELEMENTS_SELECTOR).forEach(el => el.remove());
+  return clone.textContent.trim();
+}
+
 function getBlockElements(element) {
   const blockElements = [];
 
@@ -277,9 +350,8 @@ function getBlockElements(element) {
     NodeFilter.SHOW_ELEMENT,
     {
       acceptNode: (node) => {
-        // Skip script, style, and already translated nodes
-        if (node.tagName === 'SCRIPT' ||
-            node.tagName === 'STYLE' ||
+        // Skip non-translatable elements and their children
+        if (SKIP_ELEMENTS.includes(node.tagName.toLowerCase()) ||
             node.classList.contains('bilingual-translation') ||
             node.classList.contains('translation-floating-btn') ||
             translatedNodes.has(node)) {
@@ -291,17 +363,40 @@ function getBlockElements(element) {
           return NodeFilter.FILTER_SKIP;
         }
 
-        // Check if this element has a block-level child that we'll process
-        // If so, skip this element to avoid duplicate translation
-        const hasBlockChild = Array.from(node.children).some(child =>
-          blockTags.includes(child.tagName)
-        );
-        if (hasBlockChild) {
+        // Skip hidden elements and their children
+        if (!isElementVisible(node)) {
+          return NodeFilter.FILTER_REJECT;
+        }
+
+        // Check if this element has any block-level descendant that should be processed
+        // If so, skip this element to go deeper and translate the atomic elements
+        const hasTranslatableBlockDescendant = (el) => {
+          for (const child of el.children) {
+            // Skip non-translatable elements
+            if (SKIP_ELEMENTS.includes(child.tagName.toLowerCase())) {
+              continue;
+            }
+            // If child is a block element with English text, we should go deeper
+            if (blockTags.includes(child.tagName)) {
+              const childText = getCleanTextContent(child);
+              if (childText.length > 0 && hasEnglishContent(childText)) {
+                return true;
+              }
+            }
+            // Recursively check descendants
+            if (hasTranslatableBlockDescendant(child)) {
+              return true;
+            }
+          }
+          return false;
+        };
+
+        if (hasTranslatableBlockDescendant(node)) {
           return NodeFilter.FILTER_SKIP;
         }
 
         // Only process elements with meaningful English text
-        const text = node.textContent.trim();
+        const text = getCleanTextContent(node);
         if (text.length > 0 && hasEnglishContent(text)) {
           return NodeFilter.FILTER_ACCEPT;
         }
@@ -331,7 +426,7 @@ function hasEnglishContent(text) {
 
 // Translate a single node and immediately update DOM
 async function translateElement(element) {
-  const originalText = element.textContent.trim();
+  const originalText = getCleanTextContent(element);
   if (!originalText || originalText.length < 3) return;
 
   log('[Content] Translating element:', element.tagName, originalText.substring(0, 50) + '...');
